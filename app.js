@@ -83,7 +83,3 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-const APP_PORT = process.env.PORT || '4567';
-app.listen(APP_PORT, () => {
-    console.log(`Server started on port ${APP_PORT}...`);
-  });
