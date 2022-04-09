@@ -1,0 +1,75 @@
+extends ../layout/base 
+block content 
+	section.content-header 
+		h1 
+			| Lojab.id
+			small your Hijab all days
+			h2 
+			img(src='/adminlte/dist/img/loja2.png' alt="User Image", width ='1085')
+
+	section.content
+		.box
+			.box-header.with-border
+				h3.box-title
+					| Pesanan
+				.box-tools.pull-right
+					button(type='button', data-widget='collapse', data-toggle='tooltip',title='collapse').btn.btn-box-tool
+						i.fa.fa-minus
+			.box-body
+				- if(messages.msg_info)
+					.alert.alert-success.alert-dismissable
+						button.close(type='button', data-dismiss='alert', aria-hidden='true')
+							| ×
+						h4
+							i.icon.fa.fa-check
+							| Success!
+						| !{messages.msg_info}
+				- if(messages.msg_error)
+					.alert.alert-danger.alert-dismissable
+						button.close(type='button', data-dismiss='alert', aria-hidden='true')
+							| ×
+						h4
+							i.icon.fa.fa-ban
+							| Alert!
+						| !{messages.msg_error}
+				a(href='customers/add').pull-left.btn.btn-primary
+					i.fa.fa-plus 
+					|  Add Customer
+				.data-table
+					table.table.table-bordered
+						tr
+							th
+								| No
+							th
+								| Nama
+							th
+								| Pesanan
+							th
+								| Satuan
+							th
+								| Warna
+							th
+								| Tanggal 
+							th
+								| Action
+							if messages.msg_error
+								| !{messages.msg_error}
+							else
+								for row, index in data 
+									tr
+										td #{index+1}
+										td #{row.nama}
+										td #{row.pesanan}
+										td #{row.satuan}
+										td #{row.warna}
+										td #{row.tanggal}
+										td
+											div(style='display:inline-block')
+												a(href='/customers/edit/#{row.id}').btn.btn-sm.btn-primary
+														i.fa.fa-edit
+											| 
+											div(style='display:inline-block')
+												form(method='post', action='/customers/delete/#{row.id}')
+													input(type="hidden",name="_method", value="DELETE")
+													button.btn.btn-sm.btn-danger(type='submit')
+														i.fa.fa-remove
